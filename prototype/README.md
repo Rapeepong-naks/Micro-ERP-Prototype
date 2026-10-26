@@ -1,0 +1,27 @@
+# Clickable prototype
+
+Run `node prototype/serve.cjs` from the repository root, then open `http://127.0.0.1:8765/` on this computer. All data stays in browser memory. Refreshing the page or pressing **รีเซ็ตข้อมูลทดสอบ** restores the initial sample.
+
+The interface uses real HTML buttons, inputs, selectors, dialogs, and local JavaScript state. Its Thai font is bundled as `fonts/NotoSansThai.ttf` through `@font-face`, so the web prototype does not require a system font installation. The font comes from [Google Fonts](https://github.com/google/fonts/tree/main/ofl/notosansthai) under the SIL Open Font License in `fonts/OFL-NotoSansThai.txt`.
+
+The HTML prototype follows the current `design/khonnai.figcraft` screen structure. Desktop preview uses the same 375 × 812 CSS px device frame as the FigCraft player. On a real phone it fills the viewport, with long content scrolling between the header and bottom actions. The bottom navigation uses inline SVG icons and visible Thai labels, so its meaning does not depend on icon-font glyph support. Sample data is populated for realistic tasks, so some copy and card counts differ from empty-state design frames.
+
+The store-side bottom navigation is available on detail and form screens too. Switching sections remembers the screen in each section, including separate in-progress bill and reservation drafts; tapping the already selected section returns to its list/home screen. The `ค้างอยู่` label marks a section with a screen to resume. The customer catalogue is a separate view without store navigation.
+
+The visible page heading and browser tab title both change with the current screen (for example, `หน้าแรก`, `สต็อก · รุ่นทั้งหมด`, `ออกบิล`, and `การจอง`).
+
+The FigCraft file is a separate native design artifact. Its Thai text uses Leelawadee UI on this Windows machine; the `.figcraft` archive itself contains no embedded font.
+
+The prototype uses the Soft Azure blue (`#3878DB`) and orange (`#F99545`) values shown in `brand/references/color-explorations.png`, plus the existing Khonnai wordmark. Blue remains the action color; orange marks section headers, category selection, key totals, and home accents. The orange used for small text is darker to keep it legible.
+
+The product cards and catalogue now use inline SVG garment illustrations, model/category labels, and stock status. These are clickable code components and visual placeholders until the shop supplies product photography. New-model setup supports a shared color palette across sizes and grouped stock entry by size, with blank stock fields distinguished from an explicit zero. Owners can retire and restore a model; a model with active reservations cannot be retired. The reservation list separates pending, sold, and cancelled entries; converting a reservation confirms its total, opens the linked bill, and keeps a link back to the original reservation.
+
+Run `node prototype/smoke-check.cjs` for a local check of the main state transitions. Stock is grouped by category and optional subcategory. The bill and reservation picker works like a small POS: search names, codes, sizes or subcategories; narrow by category; enter quantities across many models; and inspect a persistent cart before adding the selection to a draft. Only the first 12 matching models are shown until the search narrows. Drafts with more than five lines switch to a compact review list. Receiving searches and adds models to one receipt, with each quantity grid collapsible. New models have editable category and subcategory fields and one active size system: numeric, letter, or custom. Sizes and colors may be added within that system. Native HTML controls remain interactive.
+
+For a full browser flow check, install Playwright and Chrome, then run `node prototype/qa/browser-smoke.cjs dist/user-test-site/index.html` from the repository root. This checks exclusive size systems, subcategory filters, a 100-model catalogue, the POS cart, a 21-line bill, and receiving multiple models. The browser test is a development tool and is not included in the hosted bundle.
+
+Saved receiving records and reservations can be edited in the web prototype. Their stock or reserved quantities change by the difference, and an edit that would put on-hand stock below reserved stock is blocked. After saving a receipt, bill, or reservation, Back goes to the relevant home/list rather than reopening a submitted form. See `docs/flow-transitions.md` for the flow decisions.
+
+For remote user tests, run `node prototype/build-test-site.cjs`, then `node prototype/check-test-site.cjs`. Upload the self-contained `dist/user-test-site` folder to a static host. Its `build.json` records when and from which source files the package was built. See `docs/user-test-plan.md` for a participant task script and the prototype's data limitations.
+
+See `docs/ux-flow-review-audit.md` for the comparison with the revised UX flow review, including unresolved pricing, units, returns, and parked-sale decisions.
