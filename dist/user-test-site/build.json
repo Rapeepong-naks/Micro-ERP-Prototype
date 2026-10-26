@@ -1,12 +1,12 @@
 {
   "label": "current user-test build",
-  "builtAt": "2026-10-26T20:38:24.887Z",
+  "builtAt": "2026-10-26T20:51:24.050Z",
   "source": "prototype/",
   "sourceSha256": {
     "index.html": "9d9857484310a8a2347b54a43956257eee1af2ea7ee35c8a0c5b19320fcc16c2",
-    "app.js": "f89a272461a4cdab22fbdc42fbacc3cd3cf1e6f0bf85f673f8d7f490412d1320",
+    "app.js": "9e3f4267bc0805dff9f4052fad79d8c2ab70b9c647f9a44ec444c4e7fb86e9a4",
     "styles.css": "5687a24ded87c3ce84da5f110ce97b29cbd4e7f92f0ae45537fcb67187d069f2",
-    "device.css": "7110e1a9a7fa8c2858f4d549029fd719fdae9f21f68e2324d7fb6d30dfc76e14",
+    "device.css": "80a7702ef622589f92663cba33ce4dac56a35284233ee80c5843328bd9ae0fed",
     "fonts/NotoSansThai.ttf": "5a1c559bb539583c8a1fd99d1c5b9491e5e14478c9cd2bd0970d5c3096cc9ef8",
     "assets/khonnai-wordmark.png": "1a57d96dd818b568c2a7ed4f0d9952cd13dbbef9bde4dc0fe24df06443efd98d"
   }

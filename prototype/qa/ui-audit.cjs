@@ -1,0 +1,36 @@
+// Focused mobile UI checks. Run with Playwright and Chrome from the repo root.
+const assert=require('node:assert/strict');
+const path=require('node:path');
+const {pathToFileURL}=require('node:url');
+const {chromium}=require('playwright');
+
+(async()=>{
+  const browser=await chromium.launch({headless:true,channel:'chrome'});
+  try{
+    const page=await browser.newPage({viewport:{width:375,height:812}});
+    await page.goto(pathToFileURL(path.resolve(process.argv[2]||'prototype/index.html')).href);
+    for(const screen of ['home','models','stock','model-price','model-new','pick','bill-new','reservations','receive','catalogue']){
+      await page.evaluate(screen=>{
+        selectedModel='A-215';
+        if(screen==='model-price')modelPriceDraft='320';
+        if(screen==='model-new')newModel=blankModel();
+        if(screen==='bill-new')draft={customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}]};
+        if(screen==='pick'){pickFor='bill';pickQty={};pickSearch=''}
+        page=screen;render();
+      },screen);
+      const issues=await page.evaluate(()=>{
+        const root=document.querySelector('.phone');
+        const visible=element=>{const rect=element.getBoundingClientRect(),style=getComputedStyle(element);return rect.width>0&&rect.height>0&&style.display!=='none'&&style.visibility!=='hidden'};
+        return {
+          overflow:root.scrollWidth>root.clientWidth,
+          smallTargets:[...root.querySelectorAll('button')].filter(visible).filter(element=>{const rect=element.getBoundingClientRect();return rect.width<44||rect.height<44}).map(element=>element.dataset.action||element.textContent.trim().slice(0,25)),
+          unlabelledInputs:[...root.querySelectorAll('input')].filter(visible).filter(element=>!element.labels?.length&&!element.getAttribute('aria-label')).map(element=>element.dataset.field||element.type)
+        };
+      });
+      assert.equal(issues.overflow,false,`${screen}: horizontal overflow`);
+      assert.deepEqual(issues.smallTargets,[],`${screen}: touch targets below 44px`);
+      assert.deepEqual(issues.unlabelledInputs,[],`${screen}: unlabelled inputs`);
+    }
+    console.log('Mobile UI audit passed: 10 screens, no horizontal overflow, visible buttons at least 44 × 44 CSS px, and labelled inputs.');
+  }finally{await browser.close()}
+})().catch(error=>{console.error(error);process.exitCode=1});
