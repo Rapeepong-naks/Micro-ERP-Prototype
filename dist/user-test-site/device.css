@@ -164,7 +164,18 @@ body { color: #192231; background: #e8edf5; }
 .product-thumb { position: relative; display: grid; place-items: center; width: 72px; height: 72px; flex: none; overflow: hidden; border-radius: 13px; background: #eaf2fe; color: #2d62b7; }
 .product-thumb.brief { background: #fff0e5; color: #aa5722; }
 .product-thumb svg { width: 48px; height: 48px; }
+.product-thumb.has-photo { background: #fff; border: 1px solid var(--line); }
+.product-thumb img { display: block; width: 100%; height: 100%; object-fit: cover; }
 .product-thumb .thumb-ticket { position: absolute; top: 7px; right: 7px; width: 12px; height: 15px; background: var(--accent); clip-path: polygon(0 0,70% 0,100% 50%,70% 100%,0 100%); transform: rotate(45deg); }
+.photo-editor .row { justify-content: flex-start; align-items: center; }
+.photo-editor .product-thumb { width: 88px; height: 88px; }
+.photo-editor .stack { min-width: 0; }
+.photo-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.photo-actions .btn { flex: 1; min-width: 120px; }
+.photo-upload { position: relative; display: grid; place-items: center; cursor: pointer; }
+.photo-upload input { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.photo-upload:focus-within { outline: 2px solid var(--brand); outline-offset: 2px; }
+.photo-editor p { font-size: 13px; }
 .product-eyebrow { color: var(--brand-pressed); font-size: 11px; font-weight: 750; letter-spacing: .02em; line-height: 1.2; }
 .model-card .chevron, .stock-row .chevron { font-size: 26px; color: var(--muted); line-height: 1; }
 .model-price { color: var(--brand); font-weight: 650; }
