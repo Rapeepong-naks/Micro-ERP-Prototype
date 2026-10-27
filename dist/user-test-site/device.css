@@ -228,11 +228,17 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .catalogue-basket { display: flex; flex-direction: column; gap: 12px; }
 .catalogue-basket h2 { margin: 0; font-size: 18px; }
 .catalog-basket-line { gap: 10px; }
-.catalog-basket-line .remove-model { flex: none; width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
-.catalog-quantity { padding-top: 10px; border-top: 1px solid var(--line); }
+.catalogue-quantity { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+.catalogue-quantity > span { display: flex; flex-direction: column; gap: 2px; }
+.catalogue-quantity small { color: var(--muted); }
 .catalog-stepper { display: flex; align-items: center; gap: 12px; }
 .catalog-stepper button { width: 44px; height: 44px; border: 1px solid var(--brand-pressed); border-radius: 10px; background: #fff; color: var(--brand-pressed); font-size: 23px; }
-.catalog-stepper strong { min-width: 2ch; text-align: center; }
+.catalog-stepper input { width: 58px; height: 44px; border: 1px solid #9aa3b2; border-radius: 10px; background: #fff; color: var(--ink); text-align: center; font-size: 18px; }
+.catalog-stepper input[aria-invalid="true"] { border: 2px solid var(--danger); }
+.catalog-quantity-error { min-height: 0; margin: 0; color: var(--danger); font-size: 13px; }
+.catalog-basket-actions { display: flex; gap: 8px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+.catalog-basket-actions button { min-height: 44px; padding: 8px 10px; border: 0; border-radius: 8px; background: transparent; color: var(--brand-pressed); font-weight: 700; }
+.catalog-basket-actions button:last-child { color: var(--danger); }
 .catalogue-basket .card > .row + .row { margin-top: 10px; }
 .catalog-estimate { padding-top: 10px; border-top: 1px solid var(--line); font-size: 18px; }
 .catalog-message summary { min-height: 44px; display: flex; align-items: center; color: var(--brand-pressed); font-weight: 700; cursor: pointer; }
