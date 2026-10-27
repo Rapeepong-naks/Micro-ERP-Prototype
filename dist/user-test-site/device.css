@@ -214,6 +214,29 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .catalogue-content .product-thumb { width: 84px; height: 84px; }
 .catalogue-content .product-thumb svg { width: 57px; height: 57px; }
 .catalog-price { color: var(--brand-pressed); font-size: 17px; }
+/* The brand blue is too light behind normal white button text; use its darker token for actions. */
+.btn:not(.secondary):not(.danger):not(.ghost) { background: var(--brand-pressed); }
+.btn:not(.secondary):not(.danger):not(.ghost):active { background: #1c478e; }
+.catalogue-content #catalogue-results { display: flex; flex-direction: column; gap: 14px; }
+.catalog-category { overflow-x: auto; flex-wrap: nowrap; padding-bottom: 3px; }
+.catalog-category > .chiprow { flex-wrap: nowrap; }
+.catalog-category .chip { white-space: nowrap; }
+.catalog-unavailable { color: var(--muted); border-style: dashed; background: #f5f6f8; }
+.catalog-unavailable-list { color: var(--muted); font-size: 13px; }
+.catalog-unavailable-list summary { min-height: 44px; display: flex; align-items: center; cursor: pointer; text-decoration: underline; }
+.catalog-unavailable-list p { margin: 0 0 6px; }
+.catalogue-basket { display: flex; flex-direction: column; gap: 12px; }
+.catalogue-basket h2 { margin: 0; font-size: 18px; }
+.catalog-basket-line { gap: 10px; }
+.catalog-basket-line .remove-model { flex: none; width: 44px; height: 44px; min-width: 44px; min-height: 44px; }
+.catalog-quantity { padding-top: 10px; border-top: 1px solid var(--line); }
+.catalog-stepper { display: flex; align-items: center; gap: 12px; }
+.catalog-stepper button { width: 44px; height: 44px; border: 1px solid var(--brand-pressed); border-radius: 10px; background: #fff; color: var(--brand-pressed); font-size: 23px; }
+.catalog-stepper strong { min-width: 2ch; text-align: center; }
+.catalogue-basket .card > .row + .row { margin-top: 10px; }
+.catalog-estimate { padding-top: 10px; border-top: 1px solid var(--line); font-size: 18px; }
+.catalog-message summary { min-height: 44px; display: flex; align-items: center; color: var(--brand-pressed); font-weight: 700; cursor: pointer; }
+.catalog-message textarea { width: 100%; min-height: 170px; padding: 12px; border: 1px solid var(--line); border-radius: 10px; font: inherit; resize: vertical; }
 .stock-summary .stat { min-width: 0; border-radius: 15px; padding: 13px 10px; }
 .stock-summary .stat span, .stock-summary .stat em { font-size: 13px; }
 .stock-summary .stat strong { font-size: 27px; }
