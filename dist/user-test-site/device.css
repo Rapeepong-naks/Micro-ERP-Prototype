@@ -182,7 +182,7 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .photo-upload:focus-within { outline: 2px solid var(--brand); outline-offset: 2px; }
 .photo-editor p { font-size: 13px; }
 .product-eyebrow { color: var(--brand-pressed); font-size: 11px; font-weight: 750; letter-spacing: .02em; line-height: 1.2; }
-.model-card .chevron, .stock-row .chevron { font-size: 26px; color: var(--muted); line-height: 1; }
+.model-card .chevron { font-size: 26px; color: var(--muted); line-height: 1; }
 .model-price { color: var(--brand-pressed); font-weight: 650; }
 .current-price { border-left: 4px solid var(--accent); gap: 6px; }
 .current-price .row { align-items: center; }
@@ -204,6 +204,13 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .catalog-head h1 { font-size: 20px; }
 .catalog-head p { color: var(--muted); font-size: 13px; }
 .catalogue-content .catalog-card { border-top: 3px solid var(--brand); }
+.catalogue-group { display: flex; flex-direction: column; gap: 10px; }
+.catalogue-options { display: flex; flex-direction: column; gap: 8px; padding-top: 11px; border-top: 1px solid var(--line); }
+.catalogue-options > strong { font-size: 14px; }
+.catalogue-options .chip { min-width: 52px; }
+.catalog-soldout { gap: 0; }
+.catalog-soldout-row { display: flex; flex-direction: column; gap: 2px; padding: 10px 0; }
+.catalog-soldout-row + .catalog-soldout-row { border-top: 1px solid var(--line); }
 .catalogue-content .product-thumb { width: 84px; height: 84px; }
 .catalogue-content .product-thumb svg { width: 57px; height: 57px; }
 .catalog-price { color: var(--brand-pressed); font-size: 17px; }
@@ -211,14 +218,24 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .stock-summary .stat span, .stock-summary .stat em { font-size: 13px; }
 .stock-summary .stat strong { font-size: 27px; }
 .stock-summary .stat:last-child strong { color: var(--brand); }
-.stock-table { padding: 6px 12px; gap: 0; }
-.stock-row { display: grid; grid-template-columns: minmax(92px,1fr) 49px 38px 52px 14px; gap: 4px; align-items: center; width: 100%; text-align: center; }
-.stock-row > :first-child { text-align: left; }
-.stock-head { color: var(--muted); font-size: 12px; min-height: 42px; }
-.stock-item { min-height: 56px; padding: 9px 0; border: 0; border-top: 1px solid var(--line); background: transparent; color: var(--ink); font-size: 15px; cursor: pointer; }
-.stock-item .stack { gap: 3px; }
-.stock-item .badge { width: fit-content; }
-.stock-item .out-of-stock { color: var(--danger); }
+.stock-size-group { padding: 0 14px; gap: 0; }
+.stock-size-group .model-toggle { min-height: 64px; }
+.stock-size-body { border-top: 1px solid var(--line); }
+.stock-variant-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; min-height: 62px; padding: 8px 0; border: 0; background: transparent; color: var(--ink); text-align: left; }
+.stock-variant-row + .stock-variant-row { border-top: 1px solid var(--line); }
+.stock-variant-row .stack { min-width: 0; }
+.stock-variant-name { justify-content: flex-start; gap: 5px; flex-wrap: wrap; }
+.stock-variant-name .badge { padding: 2px 5px; font-size: 11px; }
+.stock-available { display: flex; align-items: center; gap: 5px; flex: none; color: var(--brand-pressed); font-size: 13px; }
+.stock-available strong { font-size: 19px; }
+.stock-available.out-of-stock { color: var(--danger); }
+.retired-toggle { width: 100%; min-height: 48px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 11px; background: #fff; color: var(--ink); text-align: left; font-weight: 700; }
+.retired-list { gap: 0; }
+.retired-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-height: 56px; }
+.retired-row + .retired-row { border-top: 1px solid var(--line); }
+.retired-row .btn { min-height: 44px; font-size: 13px; }
+.retired-actions { display: flex; gap: 5px; flex: none; }
+.retired-actions .btn { padding-inline: 8px; }
 .stock-actions .btn { min-height: 52px; }
 .lifecycle-action { border-top: 1px solid var(--line); padding-top: 10px; }
 .lifecycle-action .btn { background: #f0f2f6; color: var(--muted); }
