@@ -30,6 +30,14 @@ const click = async (action, extras = {}) => handlers.click({target: {closest: (
   run("selectedModel='A-215';go('stock')");
   assert.equal(context.document.title, 'สต็อก · A-215 · Khonnai');
   run("go('home')");
+  run("switchTab('bills')");
+  assert.equal(run('page'), 'bill-new');
+  assert.match(app.innerHTML, /ดูประวัติบิล/);
+  run("switchTab('home')");
+  run("role='assistant';switchTab('bills')");
+  assert.equal(run('page'), 'bills');
+  assert.doesNotMatch(app.innerHTML, /data-action="new-bill"/);
+  run("role='owner';switchTab('home')");
   assert.match(app.innerHTML, /<svg class="icon"/);
   assert.match(app.innerHTML, /<span class="nav-label">หน้าแรก<\/span>/);
   assert.doesNotMatch(app.innerHTML, /[⌂⬡▤♧▣]/);
@@ -68,6 +76,10 @@ const click = async (action, extras = {}) => handlers.click({target: {closest: (
   assert.equal(run("variant('A-215','34-ดำ').onHand"), 8);
   assert.equal(run("available(variant('A-215','34-ดำ'))"), 3);
   assert.match(app.innerHTML, /คุณสมชาย/);
+  await click('preview-reservation-bill');
+  assert.equal(run('page'), 'bill-preview');
+  assert.match(app.innerHTML, /ยังไม่ใช่บิลเงินสด/);
+  assert.equal(run("variant('A-215','34-ดำ').onHand"), 8);
   await click('convert-reservation');
   assert.equal(run("variant('A-215','34-ดำ').onHand"), 8);
   assert.match(app.innerHTML, /ยืนยันขายและเปิดบิล/);
@@ -75,7 +87,8 @@ const click = async (action, extras = {}) => handlers.click({target: {closest: (
   assert.equal(run("variant('A-215','34-ดำ').onHand"), 6);
   assert.equal(run("variant('A-215','34-ดำ').reserved"), 3);
   assert.equal(run("available(variant('A-215','34-ดำ'))"), 3);
-  assert.match(app.innerHTML, /ลูกค้า: คุณสมชาย/);
+  assert.match(app.innerHTML, /cash-slip-customer/);
+  assert.match(app.innerHTML, /คุณสมชาย/);
   assert.match(app.innerHTML, /ดูรายการจองเดิม/);
   await click('open-source-reservation', {id: run('data.reservations.at(-1).id')});
   assert.equal(run('page'), 'reservation-detail');
@@ -84,7 +97,12 @@ const click = async (action, extras = {}) => handlers.click({target: {closest: (
   await click('open-linked-bill');
   assert.equal(run('page'), 'bill-done');
 
-  run("draft={customer:'คุณวิไล',lines:[{m:'A-102',v:'32',qty:4,price:180,unit:'dozen'}]}; saveBill()");
+  run("draft={customer:'คุณวิไล',lines:[{m:'A-102',v:'32',qty:4,price:180,unit:'dozen'}]};page='bill-new';render()");
+  await click('preview-bill');
+  assert.equal(run('page'), 'bill-preview');
+  assert.match(app.innerHTML, /฿720/);
+  assert.equal(run("variant('A-102','32').onHand"), 9);
+  await click('save-bill');
   assert.equal(run('data.bills.at(-1).total'), 720);
   assert.equal(run("variant('A-102','32').onHand"), 5);
   assert.match(app.innerHTML, /฿720/);

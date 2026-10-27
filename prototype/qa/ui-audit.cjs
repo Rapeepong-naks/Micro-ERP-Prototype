@@ -9,12 +9,14 @@ const {chromium}=require('playwright');
   try{
     const page=await browser.newPage({viewport:{width:375,height:812}});
     await page.goto(pathToFileURL(path.resolve(process.argv[2]||'prototype/index.html')).href);
-    for(const screen of ['home','models','stock','model-price','model-new','pick','bill-new','reservations','receive','catalogue']){
+    for(const screen of ['home','models','stock','model-price','model-new','pick','bill-new','bill-preview','bill-done','reservations','receive','catalogue']){
       await page.evaluate(screen=>{
         selectedModel='A-215';
         if(screen==='model-price')modelPriceDraft='320';
         if(screen==='model-new')newModel=blankModel();
-        if(screen==='bill-new')draft={customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}]};
+        if(screen==='bill-new'||screen==='bill-preview')draft={customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}]};
+        if(screen==='bill-preview')previewReservationId=null;
+        if(screen==='bill-done'){lastBillId='#0001';data.bills.push({id:lastBillId,customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}],total:320,when:'วันนี้'})}
         if(screen==='pick'){pickFor='bill';pickQty={};pickSearch=''}
         page=screen;render();
       },screen);
@@ -31,6 +33,6 @@ const {chromium}=require('playwright');
       assert.deepEqual(issues.smallTargets,[],`${screen}: touch targets below 44px`);
       assert.deepEqual(issues.unlabelledInputs,[],`${screen}: unlabelled inputs`);
     }
-    console.log('Mobile UI audit passed: 10 screens, no horizontal overflow, visible buttons at least 44 × 44 CSS px, and labelled inputs.');
+    console.log('Mobile UI audit passed: 12 screens, no horizontal overflow, visible buttons at least 44 × 44 CSS px, and labelled inputs.');
   }finally{await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});

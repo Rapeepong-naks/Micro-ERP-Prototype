@@ -1,13 +1,3 @@
-## Agent skills
+# Project guidance
 
-### Issue tracker
-
-Issues and specs live as local markdown files under `.scratch/<feature>/`. See `docs/agents/issue-tracker.md`.
-
-### Triage labels
-
-Uses the five default triage roles (`needs-triage`, `needs-info`, `ready-for-agent`, `ready-for-human`, `wontfix`). See `docs/agents/triage-labels.md`.
-
-### Domain docs
-
-Single-context: `GLOSSARY.md` and `docs/adr/` at the repo root. See `docs/agents/domain.md`.
+Read `docs/SPEC.md` for the current domain language, flow rules and user-test scope. `prototype/` is the source for `dist/user-test-site/`; rebuild the latter after changes. Keep temporary issue notes in `.scratch/`, which is ignored by Git.
