@@ -9,18 +9,20 @@ const {chromium}=require('playwright');
   try{
     const page=await browser.newPage({viewport:{width:375,height:812}});
     await page.goto(pathToFileURL(path.resolve(process.argv[2]||'prototype/index.html')).href);
-    for(const screen of ['home','models','stock','model-price','model-new','pick','bill-new','bill-preview','bill-done','reservations','receive','catalogue','catalogue-basket']){
+    for(const screen of ['home','models','stock','model-price','model-new','pick','bill-new','bill-shipping','bill-preview','bill-preview-shipping','bill-done','reservations','receive','catalogue','catalogue-basket']){
       await page.evaluate(screen=>{
         selectedModel='A-215';
         if(screen==='model-price')modelPriceDraft='320';
         if(screen==='model-new')newModel=blankModel();
         if(screen==='bill-new'||screen==='bill-preview')draft={customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}]};
+        if(screen==='bill-shipping'||screen==='bill-preview-shipping')draft={customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}],delivery:{method:'shipping',carrier:'J&T',recipient:'ทดสอบ',phone:'0812345678',address:'123 ถนนตัวอย่าง กรุงเทพฯ 10110',fee:75}};
         if(screen==='bill-preview')previewReservationId=null;
+        if(screen==='bill-preview-shipping')previewReservationId=null;
         if(screen==='bill-done'){lastBillId='#0001';data.bills.push({id:lastBillId,customer:'ทดสอบ',lines:[{m:'A-215',v:'32-ดำ',qty:1,price:320,unit:'pack'}],total:320,when:'วันนี้'})}
         if(screen==='pick'){pickFor='bill';pickQty={};pickSearch=''}
         if(screen==='catalogue-basket'){catalogueView='basket';catalogueBasket=[{m:'A-215',v:'32-ดำ',qty:1}];page='catalogue'}
         else if(screen==='catalogue')catalogueView='list';
-        if(screen!=='catalogue-basket')page=screen;render();
+        if(screen!=='catalogue-basket')page=screen==='bill-shipping'?'bill-new':screen==='bill-preview-shipping'?'bill-preview':screen;render();
       },screen);
       const issues=await page.evaluate(()=>{
         const root=document.querySelector('.phone');
@@ -35,6 +37,6 @@ const {chromium}=require('playwright');
       assert.deepEqual(issues.smallTargets,[],`${screen}: touch targets below 44px`);
       assert.deepEqual(issues.unlabelledInputs,[],`${screen}: unlabelled inputs`);
     }
-    console.log('Mobile UI audit passed: 13 screens, no horizontal overflow, visible buttons at least 44 × 44 CSS px, and labelled inputs.');
+    console.log('Mobile UI audit passed: 15 screens, no horizontal overflow, visible buttons at least 44 × 44 CSS px, and labelled inputs.');
   }finally{await browser.close()}
 })().catch(error=>{console.error(error);process.exitCode=1});
