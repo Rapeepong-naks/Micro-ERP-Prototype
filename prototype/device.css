@@ -366,6 +366,16 @@ button:focus-visible, input:focus-visible, .photo-upload:focus-within { outline:
 .delivery-address { min-height: 110px; height: auto; line-height: 1.5; resize: vertical; }
 .delivery-readout-address { white-space: pre-wrap; overflow-wrap: anywhere; }
 .delivery-error { margin: 0; color: var(--danger); font-size: 14px; line-height: 1.45; }
+.saved-addresses { display: flex; flex-direction: column; gap: 9px; padding: 11px; border: 1px solid var(--line); border-radius: 12px; background: #f8faff; }
+.saved-addresses > strong { font-size: 14px; }
+.saved-address-row { display: flex; flex-direction: column; gap: 8px; padding-top: 9px; border-top: 1px solid var(--line); }
+.saved-address-row .stack { min-width: 0; font-size: 13px; line-height: 1.5; }
+.saved-address-row .stack span { white-space: pre-wrap; overflow-wrap: anywhere; }
+.saved-address-actions { display: flex; gap: 8px; }
+.saved-address-actions button { min-height: 44px; padding: 8px 13px; border: 1px solid var(--brand-pressed); border-radius: 9px; background: #fff; color: var(--brand-pressed); font-weight: 700; }
+.saved-address-actions button:last-child { border-color: var(--line); color: var(--danger); }
+.save-address { display: flex; align-items: center; gap: 10px; min-height: 44px; font-weight: 700; }
+.save-address input { width: 22px; height: 22px; accent-color: var(--brand-pressed); }
 .stock-reconcile { gap: 9px; background: #f8fbff; border-color: #c7dcfa; }
 .stock-reconcile .row { align-items: baseline; }
 .stock-reconcile [data-stock-total] { color: var(--brand); white-space: nowrap; }
